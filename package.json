@@ -13,9 +13,9 @@
   "author": "David Pfister",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/dpfister2/CS354/issues"
+    "url": "https://github.com/dpfister2/Shot2D/issues"
   },
-  "homepage": "https://github.com/dpfister2/CS354#readme",
+  "homepage": "https://github.com/dpfister2/Shot2D#readme",
   "dependencies": {
     "express": "^4.14.0",
     "socket.io": "^1.5.0"
