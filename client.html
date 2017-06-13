@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<head>
+	<link type = "text/css" href = "page.css" rel = "stylesheet"></link>
+	<link rel="icon" href="images/favicon.ico"></link>
+	<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+	<script src = "/socket.io/socket.io.js"></script>
+
+	<script>
+		var socket = io.connect();
+
+		socket.on("init", function(data) {
+			console.log("Connected Player");
+			assignID(data);
+		})
+		</script>
+
+		<script src = "main.js"></script>
+		<script src = "keyFuncs.js"></script>
+</head>
+
+<body onload = "onStart()">
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "name": "shot2d",
+  "version": "1.0.0",
+  "description": "Multiplayer space shooter",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dpfister2/CS354.git"
+  },
+  "author": "David Pfister",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dpfister2/CS354/issues"
+  },
+  "homepage": "https://github.com/dpfister2/CS354#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "socket.io": "^1.5.0"
+  }
+}

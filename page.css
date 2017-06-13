@@ -1,0 +1,16 @@
+html, body {
+	height: 100%;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+	overflow: hidden;
+}
+canvas {
+	position: absolute;
+}
+
+@font-face {
+	font-family: "PressStart";
+	src: url("images/Start.woff") format('woff');
+}
