@@ -3,7 +3,7 @@ var lastShot = 1000;
 var counter = 0;
 var particles = [];
 var player, playerImg, enemy, enemyImg;
-var keystates = {
+var keystates = { //initially sets player keystates to false
 	w : false,
 	a : false,
 	s : false,
@@ -14,7 +14,7 @@ var keystates = {
 	right : false
 }
 
-function Particle(rotation, x, y, speed, size, rgb) {
+function Particle(rotation, x, y, speed, size, rgb) { //particle constructor
 	this.rotation = rotation;
 	this.x = x;
 	this.y = y;
@@ -24,7 +24,7 @@ function Particle(rotation, x, y, speed, size, rgb) {
 	this.isAlive = true;
 }
 
-function onStart() {
+function onStart() { // creates canvas and context and loads player/enemy images
 	bc = document.createElement("canvas");
 	bctx = bc.getContext("2d");
 	bc.height = 700;
@@ -50,7 +50,7 @@ function onStart() {
 	enemyImg.onload = loadHandler();
 }
 
-function loadHandler() {
+function loadHandler() { // starts game clock after assets load
 	counter++;
 	if (counter == 2) {
 		setInterval(loop, 17);
@@ -58,7 +58,7 @@ function loadHandler() {
 	return;
 }
 
-function Enemy(x, y, rotation, score) {
+function Enemy(x, y, rotation, score) { // Enemy constructor
 	this.img = enemyImg;
 	this.rotation = 0;
 	this.score = score;
@@ -67,7 +67,7 @@ function Enemy(x, y, rotation, score) {
 	this.health = 100;
 }
 
-function Player(x, y, rotation, score) {
+function Player(x, y, rotation, score) { // Player constructor
 	this.img = playerImg;
 	this.rotation = rotation;
 	this.speed = .2;
@@ -81,7 +81,7 @@ function assignID(ID) {
 	id = ID;
 }
 
-function update(deltaMs) {
+function update(deltaMs) { // renders, updates positions, and removes unneccessary particles
 	render();
 	
 	lastShot += deltaMs;
@@ -160,7 +160,7 @@ function render() {
 	}
 }
 
-function loop() {
+function loop() { // game loop
 	var now = Date.now();
 	var deltaMs = (now-last);
 	last = now;
@@ -169,7 +169,7 @@ function loop() {
 	}
 }
 
-function rotate(centerX, centerY, rotation, image) {
+function rotate(centerX, centerY, rotation, image) { // rotates player/enemy image
 	ctx.translate(centerX, centerY);
 	ctx.rotate(rotation);
 	ctx.drawImage(image, -25, -25, 50, 50);
@@ -195,11 +195,11 @@ socket.on("update", function(data) {
 	}
 })
 
-socket.on("shot", function(data) {
+socket.on("shot", function(data) { // adds particle from server
 	particles.push(new Particle(data.rotation, data.x, data.y, .3, 7, [255, 255, 0]))
 })
 
-socket.on("hit", function(data) {
+socket.on("hit", function(data) { // creates particle explosion from server information
 	if (data.id == id) {
 			var rgb = [65,105,255];
 	}
@@ -213,7 +213,7 @@ socket.on("hit", function(data) {
 	}
 })
 
-socket.on("death", function(data) {
+socket.on("death", function(data) { // creates particle explosion from server
 	for (var i = 0; i < 200; i++) {
 		rotation = Math.random()*2*Math.PI;
 		rgb = [Math.floor(Math.random()*255), Math.floor(Math.random()*255), Math.floor(Math.random()*255)];
@@ -221,7 +221,7 @@ socket.on("death", function(data) {
 	}
 })
 
-socket.on("Lobby Change", function(data){
+socket.on("Lobby Change", function(data){ // updates client info after lobby change
 	player = null;
 	enemy = null;
 	for (var i = 0; i < data.length; i++) {

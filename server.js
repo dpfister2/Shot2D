@@ -46,35 +46,35 @@ io.sockets.on("connection", function(socket) {
 		io.sockets.emit("Lobby Change", returnTempClients());
 	}
 
-	socket.on("w", function(keystate){
+	socket.on("w", function(keystate){ //changes w keystate
 		var i = returnClientSpot(socket);
 		if (i != -1) {
 			clients[i].w = keystate;
 		}
 	});
 
-	socket.on("a", function(keystate){
+	socket.on("a", function(keystate){ //changes a keystate
 		var i = returnClientSpot(socket);
 		if (i != -1) {
 			clients[i].a = keystate;
 		}
 	});
 
-	socket.on("s", function(keystate){
+	socket.on("s", function(keystate){ //changes s keystate
 		var i = returnClientSpot(socket);
 		if (i != -1) {
 			clients[i].s = keystate;
 		}
 	});
 
-	socket.on("d", function(keystate){
+	socket.on("d", function(keystate){ //changes d keystate
 		var i = returnClientSpot(socket);
 		if (i != -1) {
 			clients[i].d = keystate;
 		}
 	});
 
-	socket.on("shot", function(data){
+	socket.on("shot", function(data){ // adds bullet and emits data to clients
 		shots.push(new Shot(data.rotation, data.x, data.y));
 		for (var i = 0; i < clients.length; i++) {
 			if (clients[i].socket != socket) {
@@ -87,14 +87,14 @@ io.sockets.on("connection", function(socket) {
 		}
 	})
 
-	socket.on("rotate", function(rotation){
+	socket.on("rotate", function(rotation){ // updates client's rotation
 		var i = returnClientSpot(socket);
 		if (i != -1) {
 			clients[i].rotation = rotation;
 		}
 	});
 
-	socket.on("disconnect", function() {
+	socket.on("disconnect", function() { // removes client from server
 		for (var i = 0; i < clients.length; i++) {
 			if (clients[i].socket == socket) {
 				clients.splice(i, 1);
@@ -107,7 +107,7 @@ io.sockets.on("connection", function(socket) {
 
 });
 
-function returnTempClients() {
+function returnTempClients() { // returns array of current clients
 	var tempClients = [];
 		for (var i = 0; i < clients.length; i++) {
 			tempClients.push({
@@ -181,7 +181,7 @@ function updatePositions(deltaMs) {
 	}
 }
 
-function hit(i, k) {
+function hit(i, k) { // updates player health and score
 	io.sockets.emit("hit", {
 		x : shots[k].x,
 		y : shots[k].y,
@@ -203,14 +203,14 @@ function hit(i, k) {
 	}
 }
 
-function death(i) {
+function death(i) { // emits death info to clients, updates scores
 	io.sockets.emit("death", {x : clients[i].x, y : clients[i].y});
 	clients[i].x = Math.random()*700;
 	clients[i].y = Math.random()*700;
 	clients[i].score -= 75;
 }
 
-function returnClientSpot(socket) {
+function returnClientSpot(socket) { // returns client position in array
 	for(i = 0; i < clients.length; i++) {
 		if (clients[i].socket == socket) {
 			return i;
@@ -219,7 +219,7 @@ function returnClientSpot(socket) {
 	return -1;
 }
 
-function loop() {
+function loop() { // updates game
 	var now = Date.now();
 	var deltaMs = (now - last);
 	last = now;

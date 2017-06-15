@@ -1,4 +1,4 @@
-$(document).keydown(function(e) {
+$(document).keydown(function(e) { // sends info to server on keydown if state update is needed
 	switch(e.keyCode) {
 		case 87:
 			if (keystates.w == false) {
@@ -64,7 +64,7 @@ $(document).keydown(function(e) {
 	}
 });
 
-$(document).keyup(function(e) {
+$(document).keyup(function(e) { // sets keystates on keyup, emits to server on player movement changes
 	switch(e.keyCode) {
 		case 87:
 				keystates.w = false;
